@@ -1,5 +1,6 @@
 package aws
 
+import java.io.File
 import java.net.URI
 
 import conf.OrchidConf
@@ -12,6 +13,8 @@ import software.amazon.awssdk.services.s3.model._
 object OrchidS3 {
   def get(objKey: String): ResponseInputStream[GetObjectResponse] =
     getClient.getObject(OrchidS3RequestBuilder.getReq(objKey))
+  def put(objKey: String, file: File): PutObjectResponse =
+    getClient.putObject(OrchidS3RequestBuilder.putReq(objKey), file.toPath)
 
   private def getClient: S3Client = {
     val credential = AwsBasicCredentials.create(
@@ -32,6 +35,11 @@ object OrchidS3 {
   private object OrchidS3RequestBuilder {
     def getReq(objKey: String): GetObjectRequest =
       GetObjectRequest.builder()
+        .bucket(OrchidConf.aws.s3.bucket)
+        .key(objKey)
+        .build()
+    def putReq(objKey: String): PutObjectRequest =
+      PutObjectRequest.builder()
         .bucket(OrchidConf.aws.s3.bucket)
         .key(objKey)
         .build()
