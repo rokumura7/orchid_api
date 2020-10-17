@@ -2,9 +2,20 @@ version: "3"
 
 services:
   app:
-    build:
-      context: ./docker
+    build: ./docker
     volumes:
       - ./:/opt/workspace:cached
     ports:
       - "9000:9000"
+
+  s3:
+    image: minio/minio
+    ports:
+      - "9012:9000"
+    volumes:
+      - ./.docker/minio/data:/export
+    environment:
+      MINIO_ACCESS_KEY: orchId_123
+      MINIO_SECRET_KEY: orchId_123
+    command: server /export
+
