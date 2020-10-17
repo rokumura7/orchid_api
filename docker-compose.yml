@@ -1,0 +1,10 @@
+version: "3"
+
+services:
+  app:
+    build:
+      context: ./docker
+    volumes:
+      - ./:/opt/workspace:cached
+    ports:
+      - "9000:9000"
