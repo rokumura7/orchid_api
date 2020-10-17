@@ -8,9 +8,9 @@ object OrchidConf {
   object aws {
     object s3 {
       def bucket: String = get("aws.s3.bucket")
-      def endPoint: String = get("aws.s3.endPoint")
-      def accessKey: String = get("aws.s3.accessKey")
-      def secretKey: String = get("aws.s3.secretKey")
+      def endPoint: String = get("aws.s3.end_point")
+      def accessKey: String = get("aws.s3.access_key")
+      def secretKey: String = get("aws.s3.secret_key")
     }
   }
 }
